@@ -1,0 +1,30 @@
+data bases= recipes
+
+
+user
+  - id,
+  - name,
+  - email,
+  - password
+
+
+add_new_recipe
+   - userid,
+   - meal_name,
+   - photo
+   - description
+   - date
+
+ ingredients
+   - name
+   - add_new_recipe_id
+   - amount,
+   - amount_type,
+   - sequence
+  
+ comments
+   - add_new_recipe_id,
+   - userId,
+   - comment
+   - date
+
