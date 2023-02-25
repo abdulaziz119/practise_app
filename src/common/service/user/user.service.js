@@ -6,7 +6,7 @@ export async function createUserService(data) {
   try {
     data.password = sha256(data.password);
     const email = data.email;
-    let user = await userModel.findOne({ email });
+    let user = await userModel.findOne({ email: email });
     if (!user) {
       user = await userModel.create(data);
       return user;
@@ -44,6 +44,15 @@ export async function deleteUserByQueryService(query) {
 export async function updateUserByQueryService(query) {
   try {
     query._id = new Types.ObjectId(query._id);
+    if (query.email) {
+      let user = await userModel.findOne({ email: query.email });
+      if (user) {
+        throw new Error("This user already exists, the change did not occur");
+      } else {
+        const updated = await userModel.updateOne({ _id: query._id }, query);
+        return updated;
+      }
+    }
     const updated = await userModel.updateOne({ _id: query._id }, query);
     return updated;
   } catch (error) {

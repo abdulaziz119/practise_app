@@ -2,7 +2,6 @@ import {
   createAdd_new_recipeService,
   getAdd_new_recipeByQueryService,
   updateAdd_new_recipeByQueryService,
-  GetuserIdAdd_new_recipeService,
   get_all_the_recipesByQueryService,
   deleteAdd_new_recipeByQueryService,
 } from "../../../common/service/add_new_recipe/add_new_recipe.service.js";
@@ -25,23 +24,6 @@ export async function add_new_recipeCreateHandler(request, response) {
   }
 }
 
-export async function userIdadd_new_recipeCreateHandler(request, response) {
-  try {
-    const user_id = request.user._id;
-    console.log(user_id);
-    const newUser = await GetuserIdAdd_new_recipeService(user_id);
-    return response.json({
-      status: 200,
-      message: "Ok",
-      data: newUser,
-    });
-  } catch (error) {
-    response.json({
-      status: 400,
-      message: error.message,
-    });
-  }
-}
 export async function add_new_recipeGetHandler(request, response) {
   try {
     const data = request.body;

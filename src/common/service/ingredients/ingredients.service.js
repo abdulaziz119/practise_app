@@ -1,7 +1,16 @@
 import ingredientsModel from "../../db/model/ingredients/ingredients.model.js";
 import { Types } from "mongoose";
+import { query } from "express";
 export async function creatIngredientsService(data) {
   try {
+    data.add_new_recipe_id = new Types.ObjectId(data.add_new_recipe_id);
+    const get = await ingredientsModel.findOne({
+      add_new_recipe_id: data.add_new_recipe_id,
+      sequence: data.sequence,
+    });
+    if (get) {
+      throw Error("Such a procedure already exists");
+    }
     const create = await ingredientsModel.create(data);
     return create;
   } catch (error) {

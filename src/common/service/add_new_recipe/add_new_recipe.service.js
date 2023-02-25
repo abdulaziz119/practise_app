@@ -11,17 +11,6 @@ export async function createAdd_new_recipeService(data) {
   }
 }
 
-export async function GetuserIdAdd_new_recipeService(user_id) {
-  try {
-    console.log(user_id);
-    const get = await add_new_recipeModel.find({ userId: user_id });
-    return get;
-  } catch (error) {
-    console.log(error.message);
-    throw error;
-  }
-}
-
 export async function getAdd_new_recipeByQueryService(data) {
   try {
     const $match = {
