@@ -3,9 +3,13 @@ import {
   updateCommentsByQueryService,
   deleteCommentsByQueryService,
 } from "../../../common/service/comments/comments.service.js";
+import { getIngredientsUserService } from "../../../common/service/user/user.service.js";
 export async function commentsCreateHandler(request, response) {
   try {
     const data = request.body;
+    if (data.userId) {
+      await getIngredientsUserService(data.userId);
+    }
     const newUser = await createCommentsService(data);
     return response.json({
       status: 200,

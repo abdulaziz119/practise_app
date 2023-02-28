@@ -1,6 +1,5 @@
 import ingredientsModel from "../../db/model/ingredients/ingredients.model.js";
 import { Types } from "mongoose";
-import { query } from "express";
 export async function creatIngredientsService(data) {
   try {
     data.add_new_recipe_id = new Types.ObjectId(data.add_new_recipe_id);
@@ -22,6 +21,15 @@ export async function creatIngredientsService(data) {
 export async function deleteIngredientsByQueryService(query = {}) {
   try {
     query.add_new_recipe_id = new Types.ObjectId(query.add_new_recipe_id);
+    const deleted = await ingredientsModel.deleteMany(query, { __v: 0 });
+    return deleted;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}
+export async function deleteIngredientsIDQueryService(query = {}) {
+  try {
     const deleted = await ingredientsModel.deleteMany(query, { __v: 0 });
     return deleted;
   } catch (error) {

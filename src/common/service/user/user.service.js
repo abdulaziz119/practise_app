@@ -83,3 +83,14 @@ export async function loginUserByQueryService(query = {}) {
     throw error;
   }
 }
+
+export async function getIngredientsUserService(query) {
+  try {
+    query = new Types.ObjectId(query);
+    const user = await userModel.findOne({ _id: query });
+    return user;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}

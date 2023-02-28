@@ -2,7 +2,9 @@ import {
   creatIngredientsService,
   updateIngredientsByQueryService,
   deleteIngredientsByQueryService,
+  deleteIngredientsIDQueryService,
 } from "../../../common/service/ingredients/ingredients.service.js";
+import { Types } from "mongoose";
 
 export async function ingredientsCreateHandler(request, response) {
   try {
@@ -79,6 +81,27 @@ export async function ingredientsDeleteHandler(request, response) {
     await deleteIngredientsByQueryService({
       add_new_recipe_id,
     });
+    return response.json({
+      status: 200,
+      message: "ok",
+      data: data,
+    });
+  } catch (error) {
+    response.json({
+      status: 400,
+      message: error.message,
+    });
+  }
+}
+
+export async function ingredients_idDeleteHandler(request, response) {
+  try {
+    const data = request.body;
+    const { _id } = data;
+    for (let i of _id) {
+      i = new Types.ObjectId(i);
+      await deleteIngredientsIDQueryService(i);
+    }
     return response.json({
       status: 200,
       message: "ok",
