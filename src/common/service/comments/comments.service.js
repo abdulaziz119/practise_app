@@ -34,3 +34,14 @@ export async function updateCommentsByQueryService(query) {
     throw error;
   }
 }
+
+export async function deleteCommentsRecipeByQueryService(query = {}) {
+  try {
+    query.add_new_recipe_id = new Types.ObjectId(query.add_new_recipe_id);
+    const deleted = await commentsModel.deleteMany(query, { __v: 0 });
+    return deleted;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}

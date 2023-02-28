@@ -2,6 +2,7 @@ import {
   createCommentsService,
   updateCommentsByQueryService,
   deleteCommentsByQueryService,
+  deleteCommentsRecipeByQueryService,
 } from "../../../common/service/comments/comments.service.js";
 import { getIngredientsUserService } from "../../../common/service/user/user.service.js";
 export async function commentsCreateHandler(request, response) {
@@ -49,6 +50,26 @@ export async function commentsUpdateHandler(request, response) {
     return response.json({
       status: 200,
       message: "OK",
+      data: data,
+    });
+  } catch (error) {
+    response.json({
+      status: 400,
+      message: error.message,
+    });
+  }
+}
+
+export async function commentsRecipeDeleteHandler(request, response) {
+  try {
+    const data = request.body;
+    const { add_new_recipe_id } = data;
+    await deleteCommentsRecipeByQueryService({
+      add_new_recipe_id,
+    });
+    return response.json({
+      status: 200,
+      message: "ok",
       data: data,
     });
   } catch (error) {
