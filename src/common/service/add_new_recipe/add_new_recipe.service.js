@@ -99,3 +99,14 @@ export async function get_all_the_recipesByQueryService(query) {
     throw error;
   }
 }
+
+export async function getCommentsrecipesByQueryService(query) {
+  try {
+    query = new Types.ObjectId(query);
+    const get = await add_new_recipeModel.findById(query);
+    return get;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}

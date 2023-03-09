@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/app.js",
-    "dev": "nodemon ./src/app.js"
+    "dev": "nodemon ./src/app.js",
+    "deploy-dev": "scp -r src package.json root@3.112.202.143:/root/Apps/food"
   },
   "keywords": [],
   "author": "",

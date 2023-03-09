@@ -4,12 +4,16 @@ import {
   deleteCommentsByQueryService,
   deleteCommentsRecipeByQueryService,
 } from "../../../common/service/comments/comments.service.js";
+import { getCommentsrecipesByQueryService } from "../../../common/service/add_new_recipe/add_new_recipe.service.js";
 import { getIngredientsUserService } from "../../../common/service/user/user.service.js";
+
 export async function commentsCreateHandler(request, response) {
   try {
     const data = request.body;
-    if (data.userId) {
-      await getIngredientsUserService(data.userId);
+    const pos = await getIngredientsUserService(data.userId);
+    const get = await getCommentsrecipesByQueryService(data.add_new_recipe_id);
+    if (pos._id === get._id && get._id === pos._id) {
+      throw new Error("IDs are the same, please enter from another place");
     }
     const newUser = await createCommentsService(data);
     return response.json({
